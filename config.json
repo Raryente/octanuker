@@ -1,0 +1,10 @@
+{
+    "armed":false,
+    "automaticActivation": false,
+    
+    "channelDeletion": 0,
+
+    "channelCreation": 0,
+    "channelCreationCount": 2,
+    "channelName": "channel-name-here"
+}

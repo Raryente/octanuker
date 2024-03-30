@@ -1,0 +1,11 @@
+{
+  "name": "okerade-discord-server-nuker",
+  "version": "1.0.0",
+  "description": "An easy-to-use, fully-customizable, automatic Discord server nuker by Okerade",
+  "main": "index.js",
+  "author": "Raryente",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5"
+  }
+}
