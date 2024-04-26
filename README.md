@@ -1,4 +1,4 @@
-# Okerade Discord Server Nuker
+# OctaNuker
 This script automates the destruction and flooding of a Discord server with the use of the Discord.js library and a Discord bot.
 
 ## How to Use
