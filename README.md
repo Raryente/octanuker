@@ -42,7 +42,7 @@ Open ``.env`` and type the following:
 ```
 TOKEN=YOUR-TOKEN-HERE
 ```
-Replace the token with the token of your discord bot. *(The one you noted down)*
+Replace the YOUR-TOKEN-HERE with the token of your discord bot. *(The one you noted down)*
 
 8. Check if it worked by typing ```node .```
 > [!TIP]
